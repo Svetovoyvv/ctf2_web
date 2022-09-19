@@ -1,1 +1,1 @@
-export const API_LINK = 'http://api.localhost:5000'
+export const API_LINK = 'http://ctfweb.it-apostol.ru/api'

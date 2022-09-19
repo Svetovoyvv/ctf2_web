@@ -1,6 +1,7 @@
 import flask
 from lxml import etree
 app = flask.Flask(__name__)
+app['APPLICATION_ROOT'] = '/api'
 @app.route('/')
 def index():
     return 'TestApi'
