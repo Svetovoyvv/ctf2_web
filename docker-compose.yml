@@ -2,7 +2,7 @@ version: '2'
 services:
   ctf2_frontend:
     build: ./front
-    name: ctf2_frontend
+    container_name: ctf2_frontend
     labels:
      - "traefik.enable=true"
      - "traefik.http.routers.ctf2_frontend.rule=Host(`ctfweb.it-apostol.ru`)"
@@ -10,7 +10,7 @@ services:
      - "traefik.http.services.ctf2_frontend.loadbalancer.server.port=3000"
   ctf2_backend:
     build: ./backend
-    name: ctf2_backend
+    container_name: ctf2_backend
     labels:
      - "traefik.enable=true"
      - "traefik.http.routers.ctf2_backend.rule=Host(`ctfweb.it-apostol.ru`) && PathPrefix(`/api`)"
