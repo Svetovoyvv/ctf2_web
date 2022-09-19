@@ -1,12 +1,14 @@
 import flask
 from lxml import etree
 app = flask.Flask(__name__)
-app['APPLICATION_ROOT'] = '/api'
-@app.route('/')
+
+
+bp = flask.Blueprint('api', __name__, url_prefix='/api')
+@bp.route('/')
 def index():
     return 'TestApi'
 
-@app.post('/xml1')
+@bp.post('/xml1')
 def xml1():
     try:
         parser = etree.XMLParser(resolve_entities=True, no_network=False)
@@ -16,7 +18,7 @@ def xml1():
         return 'Error: ' + str(e), 500
     return '\n'.join(f'Hello {name.text}' for name in data)
 
-@app.get('/xml2')
+@bp.get('/xml2')
 def xml2():
     if flask.request.remote_addr == '127.0.0.1':
         return 'Hello admin SfeduCTF{flag2}'
@@ -31,4 +33,5 @@ def add_cors(response):
     return response
 
 if __name__ == '__main__':
+    app.register_blueprint(bp)
     app.run('0.0.0.0', debug=True)
