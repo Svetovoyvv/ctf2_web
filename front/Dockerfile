@@ -1,6 +1,6 @@
 FROM node:latest
 
-WORKDIR /fronend
+WORKDIR /frontend
 COPY . .
 
 RUN npm i --legacy-peer-deps

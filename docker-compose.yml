@@ -11,7 +11,7 @@ services:
     build: ./backend
     labels:
      - "traefik.enable=true"
-     - "traefik.http.routers.ctf2_frontend.rule=Host(`ctf2.it-apostol.ru`) && Path(`/api`)"
-     - "traefik.http.routers.ctf2_frontend.entrypoints=http"
-     - "traefik.http.services.ctf2_frontend.loadbalancer.server.port=5000"
+     - "traefik.http.routers.ctf2_backend.rule=Host(`ctf2.it-apostol.ru`) && Path(`/api`)"
+     - "traefik.http.routers.ctf2_backend.entrypoints=http"
+     - "traefik.http.services.ctf2_backend.loadbalancer.server.port=5000"
     
