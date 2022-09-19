@@ -7,7 +7,9 @@ services:
      - "traefik.enable=true"
      - "traefik.http.routers.ctf2_frontend.rule=Host(`ctfweb.it-apostol.ru`)"
      - "traefik.http.routers.ctf2_frontend.entrypoints=http"
-     - "traefik.http.services.ctf2_frontend.loadbalancer.server.port=3000"
+     - "traefik.http.services.ctf2_frontend.loadbalancer.server.port=80"
+    environment:
+      - PORT=80
   ctf2_backend:
     build: ./backend
     container_name: ctf2_backend
