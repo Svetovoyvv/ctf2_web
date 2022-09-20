@@ -6,6 +6,7 @@ export default function App(){
     useEffect(() => {
         document.title = 'Web Exploits'
     })
+    console.log(process.env);
     return (
         <>
             <NavHeader />
