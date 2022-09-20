@@ -25,9 +25,13 @@ def get_db():
 @contextmanager
 def set_dir(path: str):
     init_path = os.getcwd()
-    os.chdir(path)
-    yield
-    os.chdir(init_path)
+    try:
+        os.chdir(path)
+        yield
+    except:
+        pass
+    finally:
+        os.chdir(init_path)
 
 def init():
     with get_db() as sql:
@@ -62,7 +66,7 @@ def pt():
 
     except json.JSONDecodeError:
         return flask.jsonify({'status': False, 'message': 'No data'})
-    resp = {'status': True}
+    resp = {'status': False}
     with set_dir('./open_files'):
         if mode == 'read':
             content = 'File not found'
@@ -70,6 +74,7 @@ def pt():
                 with open(file, 'r') as f:
                     content = f.read()
             resp['content'] = content
+            resp['status'] = True
         elif mode == 'list':
             files = []
             if os.path.exists(file) and os.path.isdir(file):
@@ -78,6 +83,8 @@ def pt():
                     os.listdir(file)
                 ))
             resp['files'] = files
+            resp['status'] = True
+
     return flask.jsonify(resp)
 
 
