@@ -1,7 +1,11 @@
 import {Routes, Route} from "react-router-dom"
 import NavHeader from "./NavHeader"
 import routes from "./pages/tasks";
+import {useEffect} from "react";
 export default function App(){
+    useEffect(() => {
+        document.title = 'Web Exploits'
+    })
     return (
         <>
             <NavHeader />

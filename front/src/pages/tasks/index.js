@@ -1,29 +1,43 @@
 import TaskXml1Page from "./xml";
 import HomePage from "../Home";
 import NotFoundPage from "../NotFound";
+import TaskSQLPage from "./sql";
+import HomeIcon from '@mui/icons-material/Home';
+import BuildIcon from '@mui/icons-material/Build';
+import TaskPathTraversalPage from "./pt";
 const routes = {
     src: [
         {
-            name: 'index',
+            name: 'Home',
             path: '/',
             element: HomePage,
-            hide: true
+            hide: true,
+            icon: HomeIcon
         },
         {
             name: "XML",
             element: TaskXml1Page,
-            path: "/task1"
+            path: "/task1",
+            icon: BuildIcon
         },
         {
             name: "SQL",
-            element: undefined,
-            path: "/task3"
+            element: TaskSQLPage,
+            path: "/task2",
+            icon: BuildIcon
+        },
+        {
+            name: "Path Traversal",
+            element: TaskPathTraversalPage,
+            path: "/task3",
+            icon: BuildIcon
         },
         {
             name: 'not found',
             path: '/*',
             element: NotFoundPage,
-            hide: true
+            hide: true,
+            system: true
         }
     ].map((e) => {
         e.element = e.element ?? NotFoundPage;

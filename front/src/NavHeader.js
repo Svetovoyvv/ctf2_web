@@ -1,7 +1,10 @@
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import {makeStyles, AppBar, CssBaseline, Toolbar} from "@material-ui/core";
 import {useState} from "react";
 import routes from "./pages/tasks";
+import {IconButton, useMediaQuery, useTheme} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import DrawerNavigation from "./DrawerNavigation";
 const useStyles = makeStyles((theme) =>({
     navlinks: {
         display: "flex",
@@ -16,12 +19,23 @@ const useStyles = makeStyles((theme) =>({
 }))
 export default function NavHeader(){
     const classes = useStyles();
-    const [activePage, setActivePage] = useState(0);
+    const theme = useTheme();
+    const [isOpened, setOpened] = useState(false);
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const location = useLocation();
     return (
         <AppBar>
             <CssBaseline />
+            {isMobile ? <>
+                    <DrawerNavigation isOpened={isOpened} setOpened={setOpened} />
+                    <Toolbar>
+                        <IconButton onClick={(e) => setOpened(true)}>
+                            <MenuIcon/>
+                        </IconButton>
+                    </Toolbar>
+                </> :
             <Toolbar>
-                <Link className={classes.page} to="/" onClick={()=>{setActivePage(-1)}}>
+                <Link className={classes.page} to="/">
                     Web tasks
                 </Link>
                 <div className={classes.navlinks}>
@@ -31,14 +45,13 @@ export default function NavHeader(){
                             key={i}
                             to={e.path}
                             className={classes.page}
-                            onClick={()=>{setActivePage(i)}}
-                            style={i === activePage ? {borderBottom: "3px solid #fff"} : {}}
+                            style={location.pathname === e.path ? {borderBottom: "3px solid #fff"} : {}}
                         >
                             {e.name}
                         </Link>
                     )}
                 </div>
-            </Toolbar>
+            </Toolbar>}
         </AppBar>
     )
 }

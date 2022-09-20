@@ -1,7 +1,8 @@
-import {Toolbar, Box, Container, Button, useTheme, Typography, makeStyles} from "@material-ui/core";
+import {Toolbar, Box, Container, useTheme, Typography, makeStyles} from "@material-ui/core";
+import {Button} from "@mui/material"
 import ReactCodeMirror from "@uiw/react-codemirror";
 import {xml} from "@codemirror/lang-xml"
-import {useCallback, useState} from "react";
+import {useState} from "react";
 import useLocalStorage from "../../hooks"
 import axios from "axios";
 import {API_LINK} from "../../constants";
@@ -21,7 +22,11 @@ export default function TaskXml1Page(){
         `<Peoples>\n\t<name>Admin</name>\n\t<name>Tester</name>\n</Peoples>`
     );
     const [response, setResponse] = useState(undefined);
-    const sendRequest = useCallback(() => {
+    const [oldContent, setOldContent] = useState("");
+    const sendRequest = () => {
+        if (content === oldContent)
+            return
+        setOldContent(content);
         setResponse('LOADING');
         axios.post(API_LINK + '/xml1', content, {
             headers:{ 'Content-Type': 'text/xml' },
@@ -32,7 +37,8 @@ export default function TaskXml1Page(){
             const resp = error.response;
             setResponse(`${resp.status} ${resp.statusText}\n${resp.data}`)
         })
-    }, [content])
+    };
+
     return (
         <>
             <Toolbar />
@@ -45,7 +51,7 @@ export default function TaskXml1Page(){
                         <Typography component="li" style={{paddingBottom: theme.spacing(1)}}>
                             Получить флаг из файла
                             <code className={classes.codeText}>
-                                /flag_xml_1.txt
+                                /flag_xml.txt
                             </code>
                         </Typography>
                         <Typography component="li">
