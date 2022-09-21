@@ -162,7 +162,7 @@ def add_cors(response):
 
 if __name__ == '__main__':
     app.register_blueprint(bp)
-    print('Server started')
-    print('\n'.join(str(i) for i in list(app.url_map.iter_rules())))
+    # print('Server started')
+    # print('\n'.join(str(i) for i in list(app.url_map.iter_rules())))
     init()
-    app.run('0.0.0.0', debug=True, port=80)
+    app.run('0.0.0.0', debug=False, port=80)
