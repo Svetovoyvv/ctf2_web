@@ -1,11 +1,11 @@
-import {Toolbar} from "@material-ui/core";
+import {makeStyles, Toolbar, Typography} from "@material-ui/core";
 import {
     Alert,
     AlertTitle,
     Box,
     Button,
     CircularProgress,
-    Container,
+    Container, Link,
     Paper,
     Stack,
     TextField,
@@ -15,8 +15,15 @@ import {useState} from "react";
 import axios from "axios";
 import {API_LINK} from "../../constants";
 import useLocalStorage from "../../hooks";
-
+const useStyles = makeStyles((theme) => ({
+    codeText: {
+        background: "rgba(0, 0, 0, 0.05)",
+        borderRadius: theme.spacing(1),
+        padding: "2px"
+    }
+}))
 export default function TaskSSTIPage(){
+    const classes = useStyles();
     const [failedText, setFailedText] = useState('');
     const [isLoading, setLoading] = useState(false);
     const [response, setResponse] = useState('');
@@ -52,6 +59,25 @@ export default function TaskSSTIPage(){
             <Box>
                 <h1>Server Side Template Injection</h1>
                 <h3>Очередной сервис, который вас приветствует и не только</h3>
+
+                <h3>Цели:</h3>
+                <ul>
+                    <Typography component="li" style={{paddingBottom: theme.spacing(1)}}>
+                        Получить флаг из перемнной окружения&nbsp;
+                        <code className={classes.codeText}>
+                            FLAG_SSTI
+                        </code>
+                    </Typography>
+                    <Typography component="li" style={{paddingBottom: theme.spacing(1)}}>
+                        Не сломать таску ПЖ
+                        (<Link
+                            target="_blank"
+                            href="http://www.consultant.ru/document/cons_doc_LAW_10699/5c337673c261a026c476d578035ce68a0ae86da0/"
+                            style={{cursor: "pointer"}}>
+                            272 УК РФ
+                        </Link>)
+                    </Typography>
+                </ul>
                 <Box style={{
                     display: "flex",
                     justifyContent: "center"
