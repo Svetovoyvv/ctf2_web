@@ -5,6 +5,7 @@ import TaskSQLPage from "./sql";
 import HomeIcon from '@mui/icons-material/Home';
 import BuildIcon from '@mui/icons-material/Build';
 import TaskPathTraversalPage from "./pt";
+import TaskSSTIPage from "./ssti";
 const routes = {
     src: [
         {
@@ -30,6 +31,12 @@ const routes = {
             name: "Path Traversal",
             element: TaskPathTraversalPage,
             path: "/task3",
+            icon: BuildIcon
+        },
+        {
+            name: 'SSTI',
+            element: TaskSSTIPage,
+            path: "task4",
             icon: BuildIcon
         },
         {

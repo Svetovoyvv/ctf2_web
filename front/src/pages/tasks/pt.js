@@ -68,7 +68,7 @@ export default function TaskPathTraversalPage(){
     }
     return <>
         <Toolbar/>
-        <Container>
+        <Container fixed>
             <Box>
                 <h1>Path Traversal</h1>
                 <h3>Есть простой сервис, который предлагает вам посмотреть текстовые файлы</h3>

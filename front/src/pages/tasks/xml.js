@@ -1,9 +1,11 @@
-import {Toolbar, Box, Container, useTheme, Typography, makeStyles} from "@material-ui/core";
+import {Toolbar, useTheme, makeStyles} from "@material-ui/core";
+import {Box, Container, Typography} from "@mui/material";
+
 import {Button} from "@mui/material"
 import ReactCodeMirror from "@uiw/react-codemirror";
 import {xml} from "@codemirror/lang-xml"
 import {useState} from "react";
-import useLocalStorage from "../../hooks"
+import useLocalStorage from "../../hooks";
 import axios from "axios";
 import {API_LINK} from "../../constants";
 import ResponseBlock from "../utils/ResponseBlock";

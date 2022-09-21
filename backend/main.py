@@ -1,3 +1,4 @@
+import html
 import json
 import os
 
@@ -17,21 +18,24 @@ def get_db():
         db.row_factory = sqlite3.Row
         cur = db.cursor()
         yield cur
-    except Exception as e: # noqa
+    except Exception as e:  # noqa
         # traceback.print_exc()
         pass
     finally:
         db.close()
+
+
 @contextmanager
 def set_dir(path: str):
     init_path = os.getcwd()
     try:
         os.chdir(path)
         yield
-    except:
+    except Exception as e:  # noqa
         pass
     finally:
         os.chdir(init_path)
+
 
 def init():
     with get_db() as sql:
@@ -48,10 +52,30 @@ def init():
         sql.connection.commit()
 
 
-
 @bp.route('/')
 def index():
     return 'TestApi'
+
+@bp.post('/ssti')
+def ssti():
+    try:
+        data = flask.request.get_json()
+        content = data.get('content')
+        name = data.get('name')
+        if name is None or content is None:
+            raise Exception('Invalid request')
+    except Exception as e:  # noqa
+        return flask.jsonify({'status': False})
+    resp = {'status': False}
+    try:
+        resp['content'] = html.unescape(
+            flask.render_template_string(content, name=name)
+        )
+        resp['status'] = True
+    except Exception: # noqa
+        pass
+    return flask.jsonify(resp)
+
 
 
 @bp.post('/pt1')
@@ -72,7 +96,7 @@ def pt():
             content = 'File not found'
             if os.path.exists(file) and os.path.isfile(file):
                 with open(file, 'r') as f:
-                    content = f.read()
+                    content = f.read()[:100]
             resp['content'] = content
             resp['status'] = True
         elif mode == 'list':
@@ -86,8 +110,6 @@ def pt():
             resp['status'] = True
 
     return flask.jsonify(resp)
-
-
 
 
 @bp.post('/xml1')
@@ -143,4 +165,4 @@ if __name__ == '__main__':
     print('Server started')
     print('\n'.join(str(i) for i in list(app.url_map.iter_rules())))
     init()
-    app.run('0.0.0.0', debug=False, port=80)
+    app.run('0.0.0.0', debug=True, port=80)
