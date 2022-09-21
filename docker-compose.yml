@@ -17,7 +17,7 @@ services:
      - "traefik.http.routers.ctf2_frontend.entrypoints=http"
      - "traefik.http.services.ctf2_frontend.loadbalancer.server.port=80"
     environment:
-      - API_LINK=http://ctfweb.it-apostol.ru/api
+      - REACT_APP_API_LINK=http://ctfweb.it-apostol.ru/api
       - PORT=80
   
     
