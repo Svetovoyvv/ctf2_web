@@ -63,7 +63,7 @@ export default function TaskSSTIPage(){
                 <h3>Цели:</h3>
                 <ul>
                     <Typography component="li" style={{paddingBottom: theme.spacing(1)}}>
-                        Получить флаг из перемнной окружения&nbsp;
+                        Получить флаг из переменной окружения&nbsp;
                         <code className={classes.codeText}>
                             FLAG_SSTI
                         </code>

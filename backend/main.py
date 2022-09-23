@@ -148,7 +148,7 @@ def sql1():
         success = len(sql.execute(query).fetchall()) > 0
     resp['status'] = success
     if success:
-        resp['message'] = 'Hello admin SfeduCTF{flag3}'
+        resp['message'] = 'Hello admin SfeduCTF{sql_1nj3ction}'
     return flask.jsonify(resp)
 
 
